@@ -1,10 +1,10 @@
-package ru.myproject.currencyconverter.data.local
+package ru.myproject.currencyconverter.data.remote.datasource
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.Response
-import ru.myproject.currencyconverter.data.local.api.RetrofitInstance
-import ru.myproject.currencyconverter.data.local.model.CurrencyResponse
+import ru.myproject.currencyconverter.data.remote.api.RetrofitInstance
+import ru.myproject.currencyconverter.data.remote.model.CurrencyResponse
 
 class CurrencyRemoteDataSource(private val ioDispatcher: CoroutineDispatcher) {
 

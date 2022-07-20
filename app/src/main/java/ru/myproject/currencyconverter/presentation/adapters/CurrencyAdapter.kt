@@ -7,22 +7,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.myproject.currencyconverter.R
-import ru.myproject.currencyconverter.data.local.model.Valute
+import ru.myproject.currencyconverter.data.remote.model.CurrencyRemote
 import ru.myproject.currencyconverter.databinding.ItemCurrencyBinding
-import ru.myproject.currencyconverter.domain.model.Currency
 
-class CurrencyAdapter : ListAdapter<Valute, CurrencyAdapter.CurrencyViewHolder>(DiffCallback()) {
+class CurrencyAdapter : ListAdapter<CurrencyRemote, CurrencyAdapter.CurrencyViewHolder>(DiffCallback()) {
 
     inner class CurrencyViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
         var binding: ItemCurrencyBinding = ItemCurrencyBinding.bind(itemView)
 
-        fun bind(valute: Valute) = with(binding) {
+        fun bind(valute: CurrencyRemote) = with(binding) {
             tvCharcode.text = valute.CharCode
             tvNominalAndName.text = "${valute.Nominal} ${valute.Name}"
             tvValue.text = valute.Value.toString()
-            //tvDifference.text = Valute.difference.toString()
+            //tvDifference.text = CurrencyRemote.difference.toString()
             ivCountryFlag.setImageResource(R.drawable.img)
         }
 
@@ -41,13 +40,13 @@ class CurrencyAdapter : ListAdapter<Valute, CurrencyAdapter.CurrencyViewHolder>(
 
 }
 
-class DiffCallback : DiffUtil.ItemCallback<Valute>() {
+class DiffCallback : DiffUtil.ItemCallback<CurrencyRemote>() {
 
-    override fun areItemsTheSame(oldItem: Valute, newItem: Valute): Boolean {
+    override fun areItemsTheSame(oldItem: CurrencyRemote, newItem: CurrencyRemote): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: Valute, newItem: Valute): Boolean {
+    override fun areContentsTheSame(oldItem: CurrencyRemote, newItem: CurrencyRemote): Boolean {
         return areItemsTheSame(oldItem, newItem)
     }
 

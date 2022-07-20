@@ -1,8 +1,8 @@
-package ru.myproject.currencyconverter.data.local.api
+package ru.myproject.currencyconverter.data.remote.api
 
 import retrofit2.Response
 import retrofit2.http.GET
-import ru.myproject.currencyconverter.data.local.model.CurrencyResponse
+import ru.myproject.currencyconverter.data.remote.model.CurrencyResponse
 
 interface CurrencyApi {
 

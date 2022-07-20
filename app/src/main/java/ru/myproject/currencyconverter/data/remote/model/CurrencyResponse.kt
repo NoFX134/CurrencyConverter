@@ -1,4 +1,4 @@
-package ru.myproject.currencyconverter.data.local.model
+package ru.myproject.currencyconverter.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -11,6 +11,6 @@ data class CurrencyResponse(
     val date: String? = null,
     @SerializedName("PreviousDate")
     val previousDate: String? = null,
-    @SerializedName("Valute")
-    val valute: Map<String, Valute>
+    @SerializedName("CurrencyRemote")
+    val valute: Map<String, CurrencyRemote>
 )

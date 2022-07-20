@@ -1,4 +1,4 @@
-package ru.myproject.currencyconverter.data.local.api
+package ru.myproject.currencyconverter.data.remote.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

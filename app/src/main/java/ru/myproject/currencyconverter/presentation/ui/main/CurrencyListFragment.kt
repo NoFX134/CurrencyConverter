@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
 import ru.myproject.currencyconverter.data.CurrencyRepositoryImpl
-import ru.myproject.currencyconverter.data.local.CurrencyRemoteDataSource
+import ru.myproject.currencyconverter.data.remote.datasource.CurrencyRemoteDataSource
 import ru.myproject.currencyconverter.databinding.FragmentCurrencyListBinding
-import ru.myproject.currencyconverter.domain.model.Currency
 import ru.myproject.currencyconverter.presentation.adapters.CurrencyAdapter
 import ru.myproject.currencyconverter.util.Resource
 

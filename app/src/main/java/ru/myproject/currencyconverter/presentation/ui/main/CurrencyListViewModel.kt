@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.myproject.currencyconverter.data.local.model.CurrencyResponse
+import ru.myproject.currencyconverter.data.remote.model.CurrencyResponse
 import ru.myproject.currencyconverter.util.Resource
 import retrofit2.Response
-import ru.myproject.currencyconverter.data.CurrencyRepositoryImpl
-import ru.myproject.currencyconverter.data.local.CurrencyRemoteDataSource
 import ru.myproject.currencyconverter.domain.CurrencyRepository
 
 class CurrencyListViewModel(private val currencyRepository: CurrencyRepository) : ViewModel() {
