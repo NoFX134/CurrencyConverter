@@ -7,21 +7,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.myproject.currencyconverter.R
+import ru.myproject.currencyconverter.data.local.model.Valute
 import ru.myproject.currencyconverter.databinding.ItemCurrencyBinding
 import ru.myproject.currencyconverter.domain.model.Currency
 
-class CurrencyAdapter : ListAdapter<Currency, CurrencyAdapter.CurrencyViewHolder>(DiffCallback()) {
+class CurrencyAdapter : ListAdapter<Valute, CurrencyAdapter.CurrencyViewHolder>(DiffCallback()) {
 
     inner class CurrencyViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
         var binding: ItemCurrencyBinding = ItemCurrencyBinding.bind(itemView)
 
-        fun bind(currency: Currency) = with(binding) {
-            tvCharcode.text = currency.charcode
-            tvNominalAndName.text = "${currency.nominal} ${currency.name}"
-            tvValue.text = currency.value.toString()
-            tvDifference.text = currency.difference.toString()
+        fun bind(valute: Valute) = with(binding) {
+            tvCharcode.text = valute.CharCode
+            tvNominalAndName.text = "${valute.Nominal} ${valute.Name}"
+            tvValue.text = valute.Value.toString()
+            //tvDifference.text = Valute.difference.toString()
             ivCountryFlag.setImageResource(R.drawable.img)
         }
 
@@ -40,13 +41,13 @@ class CurrencyAdapter : ListAdapter<Currency, CurrencyAdapter.CurrencyViewHolder
 
 }
 
-class DiffCallback : DiffUtil.ItemCallback<Currency>() {
+class DiffCallback : DiffUtil.ItemCallback<Valute>() {
 
-    override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean {
+    override fun areItemsTheSame(oldItem: Valute, newItem: Valute): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean {
+    override fun areContentsTheSame(oldItem: Valute, newItem: Valute): Boolean {
         return areItemsTheSame(oldItem, newItem)
     }
 

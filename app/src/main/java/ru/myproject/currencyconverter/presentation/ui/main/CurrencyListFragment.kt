@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.myproject.currencyconverter.databinding.FragmentCurrencyConverterBinding
+import kotlinx.coroutines.Dispatchers
+import ru.myproject.currencyconverter.data.CurrencyRepositoryImpl
+import ru.myproject.currencyconverter.data.local.CurrencyRemoteDataSource
 import ru.myproject.currencyconverter.databinding.FragmentCurrencyListBinding
 import ru.myproject.currencyconverter.domain.model.Currency
 import ru.myproject.currencyconverter.presentation.adapters.CurrencyAdapter
+import ru.myproject.currencyconverter.util.Resource
 
 class CurrencyListFragment : Fragment() {
 
@@ -20,7 +24,7 @@ class CurrencyListFragment : Fragment() {
         fun newInstance() = CurrencyListFragment()
     }
 
-    private val viewModel: CurrencyListViewModel by viewModels()
+    private lateinit var viewModel: CurrencyListViewModel
     private lateinit var binding: FragmentCurrencyListBinding
     private lateinit var currencyAdapter: CurrencyAdapter
 
@@ -35,9 +39,29 @@ class CurrencyListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("qwerty", "qwerty")
+        val currencyRepository = CurrencyRepositoryImpl(CurrencyRemoteDataSource(Dispatchers.IO))
+        val viewModelProviderFactory = CurrencyListViewModelProviderFactory(currencyRepository)
+        viewModel =
+            ViewModelProvider(this, viewModelProviderFactory)[CurrencyListViewModel::class.java]
         setupRecycleView()
-        currencyAdapter.submitList(Currency.currencyList)
+
+        viewModel.currency.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    Log.d("111", "Hello")
+                    response.data.let { currencyResponse ->
+                        if (currencyResponse != null) {
+                            currencyAdapter.submitList(currencyResponse.valute.values.toMutableList())
+                            Log.d("111", currencyResponse.valute.values.toString())
+                        }
+                    }
+                }
+
+                else -> {
+                    Log.d("111", "hi")
+                }
+            }
+        }
     }
 
     private fun setupRecycleView() {
