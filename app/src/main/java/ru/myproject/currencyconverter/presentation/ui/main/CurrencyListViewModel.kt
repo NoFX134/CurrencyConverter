@@ -5,10 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.myproject.currencyconverter.data.remote.model.CurrencyResponse
-import ru.myproject.currencyconverter.util.Resource
 import retrofit2.Response
+import ru.myproject.currencyconverter.data.CurrencyRepositoryImpl
+import ru.myproject.currencyconverter.data.remote.model.CurrencyResponse
 import ru.myproject.currencyconverter.domain.CurrencyRepository
+import ru.myproject.currencyconverter.util.Resource
 
 class CurrencyListViewModel(private val currencyRepository: CurrencyRepository) : ViewModel() {
 
@@ -21,7 +22,7 @@ class CurrencyListViewModel(private val currencyRepository: CurrencyRepository) 
     }
     fun fetchCurrency() = viewModelScope.launch {
         _currency.postValue(Resource.Loading())
-        val response = currencyRepository.fetchCurrency()
+        val response = currencyRepository.fetchCurrencyApi()
         _currency.postValue(handleCurrencyResponse(response))
     }
 

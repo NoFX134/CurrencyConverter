@@ -2,8 +2,9 @@ package ru.myproject.currencyconverter.mapper
 
 import ru.myproject.currencyconverter.data.local.model.CurrencyDto
 import ru.myproject.currencyconverter.data.remote.model.CurrencyRemote
+import ru.myproject.currencyconverter.domain.model.Currency
 
-class Mapper {
+object Mapper {
 
     fun dtoToCurrency(currencyDto: CurrencyDto): CurrencyRemote {
         return CurrencyRemote(
@@ -26,6 +27,19 @@ class Mapper {
             name = currency.name,
             value = currency.value,
             previousValue = currency.previousValue
+        )
+
+
+    }
+
+    fun currencyDtoToCurrency(currency: CurrencyDto): Currency {
+        return Currency(
+            id = currency.id,
+            charCode = currency.charCode,
+            nominal = currency.nominal,
+            name = currency.name,
+            value = currency.value,
+            difference = currency.value-currency.previousValue
         )
     }
 }

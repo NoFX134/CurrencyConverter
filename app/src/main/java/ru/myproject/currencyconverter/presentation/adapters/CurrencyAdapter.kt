@@ -18,9 +18,9 @@ class CurrencyAdapter : ListAdapter<CurrencyRemote, CurrencyAdapter.CurrencyView
         var binding: ItemCurrencyBinding = ItemCurrencyBinding.bind(itemView)
 
         fun bind(valute: CurrencyRemote) = with(binding) {
-            tvCharcode.text = valute.CharCode
-            tvNominalAndName.text = "${valute.Nominal} ${valute.Name}"
-            tvValue.text = valute.Value.toString()
+            tvCharcode.text = valute.charCode
+            tvNominalAndName.text = "${valute.nominal} ${valute.name}"
+            tvValue.text = valute.value.toString()
             //tvDifference.text = CurrencyRemote.difference.toString()
             ivCountryFlag.setImageResource(R.drawable.img)
         }

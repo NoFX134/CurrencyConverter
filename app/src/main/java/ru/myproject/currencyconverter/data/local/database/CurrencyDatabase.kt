@@ -1,10 +1,18 @@
 package ru.myproject.currencyconverter.data.local.database
 
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import ru.myproject.currencyconverter.data.local.model.CurrencyDto
 
+@Database(
+    entities = [CurrencyDto::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class CurrencyDatabase : RoomDatabase() {
+
     abstract fun getCurrencyDao(): CurrencyDao
 
     companion object {

@@ -1,5 +1,6 @@
 package ru.myproject.currencyconverter.presentation.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,8 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
 import ru.myproject.currencyconverter.data.CurrencyRepositoryImpl
+import ru.myproject.currencyconverter.data.local.database.CurrencyDatabase
+import ru.myproject.currencyconverter.data.local.datasource.CurrencyLocalDataSource
 import ru.myproject.currencyconverter.data.remote.datasource.CurrencyRemoteDataSource
 import ru.myproject.currencyconverter.databinding.FragmentCurrencyListBinding
+import ru.myproject.currencyconverter.domain.CurrencyRepository
 import ru.myproject.currencyconverter.presentation.adapters.CurrencyAdapter
 import ru.myproject.currencyconverter.util.Resource
 
@@ -37,7 +41,9 @@ class CurrencyListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val currencyRepository = CurrencyRepositoryImpl(CurrencyRemoteDataSource(Dispatchers.IO))
+        val currencyRemoteDataSource = CurrencyRemoteDataSource(Dispatchers.IO)
+        val currencyLocalDataSource = CurrencyLocalDataSource(CurrencyDatabase(activity as Context))
+        val currencyRepository: CurrencyRepository = CurrencyRepositoryImpl(currencyRemoteDataSource, currencyLocalDataSource )
         val viewModelProviderFactory = CurrencyListViewModelProviderFactory(currencyRepository)
         viewModel =
             ViewModelProvider(this, viewModelProviderFactory)[CurrencyListViewModel::class.java]
@@ -50,7 +56,7 @@ class CurrencyListFragment : Fragment() {
                     response.data.let { currencyResponse ->
                         if (currencyResponse != null) {
                             currencyAdapter.submitList(currencyResponse.valute.values.toMutableList())
-                            Log.d("111", currencyResponse.valute.values.toString())
+
                         }
                     }
                 }

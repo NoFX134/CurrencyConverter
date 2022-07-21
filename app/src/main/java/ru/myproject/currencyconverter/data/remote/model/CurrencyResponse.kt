@@ -11,6 +11,6 @@ data class CurrencyResponse(
     val date: String? = null,
     @SerializedName("PreviousDate")
     val previousDate: String? = null,
-    @SerializedName("CurrencyRemote")
+    @SerializedName("Valute")
     val valute: Map<String, CurrencyRemote>
 )
